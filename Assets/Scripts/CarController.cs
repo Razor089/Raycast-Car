@@ -13,6 +13,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform accelerationPoint;
     [SerializeField] private GameObject[] tires = new GameObject[4];
     [SerializeField] private GameObject[] frontTiresParent = new GameObject[2];
+    [Header("VFX")]
+    [SerializeField] private bool Active;
     [SerializeField] private TrailRenderer[] skidMarks = new TrailRenderer[2];
     [SerializeField] private ParticleSystem[] skidSmokes = new ParticleSystem[2];
 
@@ -224,15 +226,18 @@ public class CarController : MonoBehaviour
 
     private void Vfx()
     {
-        if (isGrounded && Mathf.Abs(currentCarLocalVelocity.x) > minSideSkidVelocity)
+        if (Active)
         {
-            ToggleSkidMarks(true);
-            ToggleSkidSmokes(true);
-        }
-        else
-        {
-            ToggleSkidMarks(false);
-            ToggleSkidSmokes(false);
+            if (isGrounded && Mathf.Abs(currentCarLocalVelocity.x) > minSideSkidVelocity)
+            {
+                ToggleSkidMarks(true);
+                ToggleSkidSmokes(true);
+            }
+            else
+            {
+                ToggleSkidMarks(false);
+                ToggleSkidSmokes(false);
+            }
         }
     }
 
